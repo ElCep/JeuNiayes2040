@@ -1,0 +1,52 @@
+val i = Val[Int]
+val cap1 = Val[Double]
+val cap2 = Val[Double]
+val cap3 = Val[Double]
+val cap4 = Val[Double]
+val surf1 = Val[Int]
+val surf2 = Val[Int]
+val surf3 = Val[Int]
+val surf4 = Val[Int]
+val pluie1 = Val[Double]
+val pluie2 = Val[Double]
+
+val result = Val[Array[Array[Double]]]
+val capitalAccumulation = Val[Double]
+val waterConsumption = Val[Double]
+
+//Defines the task to perform the hello function
+val javaTask = ScalaTask("""
+  import scala.jdk.CollectionConverters.*
+  val o = 
+    fr.ocelet.model.jeu_niayes.Jeu_Niayes.run(cap1, cap2, cap3, cap4, surf1, surf2, surf3, surf4,pluie1,pluie2)
+  val result = o.asScala.values.map(_.asScala.map(_.doubleValue).toArray).toArray
+  val waterConsumption = result.map(a => a(2)).sum
+  val capitalAccumulation = result.map(a => a(1)).sum
+  """) set (
+  libraries += workDirectory / "jeu_niayes_dec2023.jar",
+  inputs += i,
+  inputs += (cap1, cap2, cap3, cap4, surf1, surf2, surf3, surf4, pluie1, pluie2),
+  outputs += (i, cap1, cap2, cap3, cap4, surf1, surf2, surf3, surf4, pluie1, pluie2, result, waterConsumption, capitalAccumulation),
+  // Default values. Can be removed if OpenMOLE Vals are set by values coming from the workflow
+  /*cap1 := 11,
+  cap2 := 12,
+  cap3 := 15,
+  cap4 := 18,
+  surf1 := 2,
+  surf2 := 1,
+  surf3 := 1,
+  surf4 := 3,
+  pluie1 := 750,
+  pluie2 := 750*/
+  cap1 := 20,
+  cap2 := 11,
+  cap3 := 8,
+  cap4 := 11,
+  surf1 := 2,
+  surf2 := 3,
+  surf3 := 2,
+  surf4 := 1,
+  pluie1 := 20.0,
+  pluie2 := 6.0
+) 
+
