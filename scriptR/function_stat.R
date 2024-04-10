@@ -66,7 +66,7 @@ strat_lance <- function(mylist){
 # Définir une fonction 'strat_seau' qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
 strat_seau <- function(mylist){
   # Extraire la 16e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
-  a <- list(mylist[[1]][,,16])
+  a <- mylist[[1]][,,16]
   # Retourner la liste 'a'.
   return(simplify2array(a))
 }
