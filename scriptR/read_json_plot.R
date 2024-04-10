@@ -7,7 +7,9 @@ library(ggplot2)
 library(DescTools)
 library(dplyr)
 
+### coucouc
 
+## oijfsd
 # Lire le fichier JSON issue du script OpenMole replication.oms
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
