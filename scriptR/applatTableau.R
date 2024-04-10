@@ -68,13 +68,13 @@ s_gg.df <- as.data.frame(s_gg.df)
 s_gg.df$partie <- seq(from = 1, to = length(s_gg.df[,1]), by = 1)
 colnames(s_gg.df) <- c("p1", "p2", "p3", "p4", "partie")
 s_gg.m <- melt(s_gg.df, id.vars = "partie")
-colnames(s_gg.m) <- c("partie","player","stratSeau")
+colnames(s_gg.m) <- c("partie","player","stratGG")
 
 s_lance.df <- as.data.frame(s_lance.df)
 s_lance.df$partie <- seq(from = 1, to = length(s_lance.df[,1]), by = 1)
 colnames(s_lance.df) <- c("p1", "p2", "p3", "p4", "partie")
 s_lance.m <- melt(s_lance.df, id.vars = "partie")
-colnames(s_lance.m) <- c("partie","player","stratSeau")
+colnames(s_lance.m) <- c("partie","player","stratLance")
 
 ## jointure 
 
