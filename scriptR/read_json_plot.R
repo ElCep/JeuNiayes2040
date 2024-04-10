@@ -5,6 +5,7 @@ library(jsonlite)
 library(reshape2)
 library(ggplot2)
 library(DescTools)
+library(dplyr)
 
 
 # Lire le fichier JSON issue du script OpenMole replication.oms
@@ -25,10 +26,6 @@ for(i in 1:length(file.l)){
   ## organisation des données par PARTIES ####
   # Étape 1 : Extraction des données
   results <- data$data$variables$result
-  
-  # results[[1]][,,1:13]
-  # List|of(profnappe, p.capital, p.prelevtot, p.tot_vente_parcelles,p.tot_achat_parcelles,p.profmax,p.totoignon,p.totchou,p.totaubergine
-  #        ,p.totpiment,p.totpdt,p.totcarotte,p.nbparcelle_noncultivee)
   
   p.capital <- as.data.frame(results[[1]][,,2])
   p.capital$pluies <- tps$sum_recharge
