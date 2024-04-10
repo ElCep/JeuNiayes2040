@@ -46,8 +46,6 @@ strat_parcelle <- function(mylist){
   return(SumListA)
 }
 
-
-mylist <- results
 # Définir une fonction 'strat_techno' goute a goute
 #  prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
 strat_gg <- function(mylist){
