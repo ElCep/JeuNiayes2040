@@ -11,6 +11,8 @@ library(dplyr)
 # Lire le fichier JSON issue du script OpenMole replication.oms
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+source("function_stat.R") ## read all fonction API for manipulation
+
 
 df.meltd <- data.frame()
 file.l <- c("../data/result_pluies20-6.json", "../data/result_pluies6-20.json", "../data/result_pluies0-26.json")
