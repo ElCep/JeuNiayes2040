@@ -1,10 +1,8 @@
 rm(list = ls())
 library(jsonlite)
 library(reshape2)
-library(ggplot2)
-# library(DescTools)
 library(dplyr)
-#library(FactoMineR)
+
 
 
 # Lire le fichier JSON issue du script OpenMole replication.oms
