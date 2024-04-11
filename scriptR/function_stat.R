@@ -91,3 +91,46 @@ strat_priorite_irrigation <- function(mylist){
 }
 
 
+# Définir une fonction capital qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
+capital <- function(mylist){
+  # Extraire la 16e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
+  a <- mylist[[1]][,,2]
+  # Retourner la liste 'a'.
+  return(simplify2array(a))
+}
+
+# Définir une fonction "profnappe" qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
+profnappe <- function(mylist){
+  # Extraire la 16e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
+  a <- mylist[[1]][,,1]
+  # Retourner la liste 'a'.
+  return(simplify2array(a))
+}
+
+
+# Définir une fonction "prelevtot" qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
+prelevement <- function(mylist){
+  # Extraire la 16e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
+  a <- mylist[[1]][,,3]
+  # Retourner la liste 'a'.
+  return(simplify2array(a))
+}
+
+# Définir une fonction "profmax" qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
+puits <- function(mylist){
+  # Extraire la 16e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
+  a <- mylist[[1]][,,6]
+  # Retourner la liste 'a'.
+  return(simplify2array(a))
+}
+
+# Définir une fonction "agrandissement" qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
+prelevtot <- function(mylist){
+  # Extraire la 16e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
+  a <- mylist[[1]][,,c(4:5)]
+  
+  # A FAIRE : COMMENT ON CODE UNE SOUSTRACTION ENTRE LES VARIABLES 4 ET 5?
+  # Retourner la liste 'a'.
+  return(simplify2array(a))
+}
+
