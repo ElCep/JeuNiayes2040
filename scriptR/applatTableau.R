@@ -21,28 +21,43 @@ s_lance.df <- NULL
 s_parcelle.df <- NULL
 s_prioIrrig.df <- NULL
 s_seau.df <- NULL
+s_capital.df <- NULL
+s_profnappe.df <- NULL
+s_prelevement.df <- NULL
+s_puits.df <- NULL
+s_agrandissement.df <- NULL
+
+
 
 for(i in 1:length(file.l)){
   data <- fromJSON(file.l[i])
   results <- data$data$variables$result
-  s_culture.df <- rbind(s_culture.df, cbind(strat_culture(results),pluie[i]))
-  s_parcelle.df <- rbind(s_parcelle.df, strat_parcelle(results))
+#  s_culture.df <- rbind(s_culture.df, cbind(strat_culture(results),pluie[i])) # j'ai enlevé la colonne pluie
+  s_culture.df <- rbind(s_culture.df, strat_culture(results))
+    s_parcelle.df <- rbind(s_parcelle.df, strat_parcelle(results))
   s_prioIrrig.df <- rbind(s_prioIrrig.df, strat_priorite_irrigation(results))
   s_seau.df <- rbind(s_seau.df, strat_seau(results))
   s_gg.df <- rbind(s_gg.df, strat_gg(results))
   s_lance.df <- rbind(s_lance.df, strat_lance(results))
-
+  s_capital.df <- rbind(s_capital.df, capital(results) )
+  s_profnappe.df <- rbind(s_profnappe.df, profnappe(results) )
+  s_prelevement.df <- rbind(s_prelevement.df, prelevement(results) )
+  s_puits.df <- rbind(s_puits.df, puits(results) )
+#  s_agrandissement.df <- rbind(s_agrandissement.df, strat_ ) # A FAIRE MAIS J ARRIVE PAS LA SOUSTRACTION
 }
 
-# tableau propre pour les stratégie de culture
+# tableau propre pour les stratégies de culture
 s_culture.df <- as.data.frame(s_culture.df)
 a <- mutate_all(s_culture.df[,-5], function(x) as.numeric(x))
-a$pluie <- s_culture.df$V5
+#a$pluie <- s_culture.df$V5
 s_culture.df <- a
 s_culture.df$partie <- seq(from = 1, to = length(s_culture.df[,1]), by = 1)
-colnames(s_culture.df) <- c("p1", "p2", "p3", "p4", "pluie", "partie")
-s_culture.m <- melt(s_culture.df, id.vars = "partie")
+#colnames(s_culture.df) <- c("p1", "p2", "p3", "p4", "pluie", "partie")
+colnames(s_culture.df) <- c("p1", "p2", "p3", "p4", "partie")
+s_culture.m <- melt(s_culture.df, id.vars = "partie") # inverse ligne et colonne # pb : il met aussi la pluie en colonne !
 colnames(s_culture.m) <- c("partie","player","stratCulture")
+
+
 
 s_parcelle.df <- as.data.frame(s_parcelle.df)
 s_parcelle.df$partie <- seq(from = 1, to = length(s_parcelle.df[,1]), by = 1)
@@ -76,6 +91,32 @@ colnames(s_lance.df) <- c("p1", "p2", "p3", "p4", "partie")
 s_lance.m <- melt(s_lance.df, id.vars = "partie")
 colnames(s_lance.m) <- c("partie","player","stratLance")
 
+
+s_capital.df <- as.data.frame(s_capital.df)
+s_capital.df$partie <- seq(from = 1, to = length(s_capital.df[,1]), by = 1)
+colnames(s_capital.df) <- c("p1", "p2", "p3", "p4", "partie")
+s_capital.m <- melt(s_capital.df, id.vars = "partie")
+colnames(s_capital.m) <- c("partie","player","capital")
+
+s_profnappe.df <- as.data.frame(s_profnappe.df)
+s_profnappe.df$partie <- seq(from = 1, to = length(s_profnappe.df[,1]), by = 1)
+colnames(s_profnappe.df) <- c("p1", "p2", "p3", "p4", "partie")
+s_profnappe.m <- melt(s_profnappe.df, id.vars = "partie")
+colnames(s_profnappe.m) <- c("partie","player","profnappe")
+
+s_prelevement.df <- as.data.frame(s_prelevement.df)
+s_prelevement.df$partie <- seq(from = 1, to = length(s_prelevement.df[,1]), by = 1)
+colnames(s_prelevement.df) <- c("p1", "p2", "p3", "p4", "partie")
+s_prelevement.m <- melt(s_prelevement.df, id.vars = "partie")
+colnames(s_prelevement.m) <- c("partie","player","prelevement")
+
+s_puits.df <- as.data.frame(s_puits.df)
+s_puits.df$partie <- seq(from = 1, to = length(s_puits.df[,1]), by = 1)
+colnames(s_puits.df) <- c("p1", "p2", "p3", "p4", "partie")
+s_puits.m <- melt(s_puits.df, id.vars = "partie")
+colnames(s_puits.m) <- c("partie","player","puits")
+
+
 ## jointure 
 
 df <- left_join(s_culture.m, s_parcelle.m, by=c('player'='player', 'partie'='partie'))
@@ -83,5 +124,15 @@ df <- left_join(df, s_prioIrrig.m, by=c('player'='player', 'partie'='partie'))
 df <- left_join(df, s_seau.m, by=c('player'='player', 'partie'='partie'))
 df <- left_join(df, s_gg.m, by=c('player'='player', 'partie'='partie'))
 df <- left_join(df, s_lance.m, by=c('player'='player', 'partie'='partie'))
+df <- left_join(df, s_capital.m, by=c('player'='player', 'partie'='partie'))
+df <- left_join(df, s_profnappe.m, by=c('player'='player', 'partie'='partie'))
+df <- left_join(df, s_prelevement.m, by=c('player'='player', 'partie'='partie'))
+df <- left_join(df, s_puits.m, by=c('player'='player', 'partie'='partie'))
 
-write.csv(df, file = "../data/applatJoueur_simule.csv", row.names = F)
+
+
+
+#A FAIRE : ajouter une colonne id joueur : pour retrouver directement les joueurs en individuel
+
+
+write.csv(df, file = "../data/applatJoueur_simule_complet.csv", row.names = F)
