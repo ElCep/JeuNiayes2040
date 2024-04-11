@@ -1,5 +1,10 @@
 # JeuNiayes2040
 
+Nouvelles variables de sorties :
+
+p.capitalini,p.parcellesini,profnappe, p.capital, p.prelevtot, p.tot_vente_parcelles,p.tot_achat_parcelles,p.profmax,p.totoignon,p.totchou,p.totaubergine
+,p.totpiment,p.totpdt,p.totcarotte,p.nbparcelle_noncultivee,p.totlance,p.totgag,p.totseau,p.rangpartie1,p.rangpartie2,p.rangpartie3
+
 
 A faire :
 - retrouver le calcul de la prof de la nappe par partie irl.
