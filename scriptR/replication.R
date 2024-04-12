@@ -6,13 +6,13 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 #df <- read.csv("../data/result_replication_100k.csv")
 #saveRDS(df, file = "../data/result_replication_100k.Rdata")
 
-readRDS(file = "../data/result_replication_100k.Rdata")
-
+df <- readRDS(file = "../data/result_replication_100k.Rdata")
+set.seed(123)
 # on va tirer 10 fois le même nombre de sample 
 # créer des groupes dans un data frame
 # et on plotera les boxplot correspondant par groupe
 
-sample.v <- seq(from = 10, to = 100, by = 5) # vecteur du nombre de tirage
+sample.v <- c(10,100,1000,2000,3000) # vecteur du nombre de tirage
 
 df.gp <- data.frame()
 for(i in sample.v){
@@ -23,7 +23,8 @@ for(i in sample.v){
   }
   ggplot(data = df.gp)+
     geom_boxplot(aes(x = as.factor(gp), y = waterConsumption))+
-    labs(x  = "sample", title = paste("nombre de réplication:", i))
+    labs(x  = "sample", title = paste("nombre de réplication:", i))+
+    ylab(c(0,250))
   ggsave(paste0("../img/sample/sample",i,".png"))
 }
 
