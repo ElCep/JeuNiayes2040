@@ -46,6 +46,15 @@ strat_parcelle <- function(mylist){
   return(SumListA)
 }
 
+## Une analyse de flux de parcelles
+## parcelle acheté - parcelles vendu
+
+strat_dynFoncier <- function(mylist){
+  a <- list(mylist[[1]][,,6])
+  a <- list(mylist[[1]][,,7])
+  return(simplify2array(b) - simplify2array(a))
+}
+
 # Définir une fonction 'strat_techno' goute a goute
 #  prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
 strat_gg <- function(mylist){
