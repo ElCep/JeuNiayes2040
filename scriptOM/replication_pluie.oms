@@ -1,0 +1,14 @@
+import _file_.jeu_niayes_inputs._
+import _file_.envMuse._
+
+
+val env = LocalEnvironment(1) 
+
+DirectSampling(
+  evaluation = javaTask,
+  sampling = 
+    (i in (1 to 3000 by 1))
+    //(pluie1 in Seq(20.0,6.0,0.0)),
+    //(pluie2 in Seq(6.0,20.0,26.0)) 
+) hook (workDirectory / "result_pluies0-26", Seq(i,pluie1, pluie2, result, waterConsumption, capitalAccumulation), 
+        format = OMROutputFormat()) on env //muse by 100
