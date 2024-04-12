@@ -1,9 +1,14 @@
 # JeuNiayes2040
 
-Nouvelles variables de sorties :
+Nouvelles variables de sorties du `.jar` disponible [ici](data/jeu_niayes.jar):
 
-p.capitalini,p.parcellesini,profnappe, p.capital, p.prelevtot, p.tot_vente_parcelles,p.tot_achat_parcelles,p.profmax,p.totoignon,p.totchou,p.totaubergine
-,p.totpiment,p.totpdt,p.totcarotte,p.nbparcelle_noncultivee,p.totlance,p.totgag,p.totseau,p.rangpartie1,p.rangpartie2,p.rangpartie3
+[1]  p.capitalini,                  p.parcellesini,              profnappe, p.capital,       p.prelevtot, 
+[6]  p.tot_vente_parcelles, p.tot_achat_parcelles, p.profmax, p.totoignon,   p.totchou, 
+[11] p.totaubergine,           p.totpiment,                  p.totpdt,     p.totcarotte,   p.nbparcelle_noncultivee, 
+[16] p.totlance,                  p.totgag,                       p.totseau,  p.rangpartie1, p.rangpartie2,
+[21] p.rangpartie3
+
+---
 
 Fait :neckbeard: : 
 - 3000 réplications  x trois régimes de pluie :white_check_mark:
@@ -19,9 +24,11 @@ A faire :
 - pour plus tard, dans les simule : tester des config initiales avec des répartitions plus ou moins équitables des parcelles et capitaux de base
 
 ## Variabilité des résultats
-![dd](img/sample/sample10.png)
-
-
+![100 réplication](img/sample/sample10.png)
+![1000 replication](img/sample/sample100.png)
+![dd](img/sample/sample1000.png)
+![3000 replication](img/sample/sample3000.png "3000 replication")
+Ces 4 figure nous montre qu'au travers l'augmentation du nombre de réplication, on arrive a stabiliser les résultats des échantillons. Nous avons décider de choisir 3000 réplication dans la suite de l'analyse
 ## Analyse à l'échelle des joueurs
 
 ## Analyse à l'échelle des parties
