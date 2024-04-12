@@ -14,6 +14,8 @@ Fait :neckbeard: :
 - 3000 réplications  x trois régimes de pluie :white_check_mark:
 - update model version du 11/02 :white_check_mark:
 - Renouveler le travail sur les boxplot pour avoir -> 3000 :white_check_mark:
+
+
 A faire :
 - retrouver le calcul de la prof de la nappe par partie irl.
 - script function_stat---> coder la dynamique soustraire ventes et additionner les achats :smoking:
