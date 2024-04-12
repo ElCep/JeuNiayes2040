@@ -17,7 +17,7 @@ strat_culture <- function(mylist){
   # Extraire les 8e, 9e et 12e colonne du premier élément de 'mylist'
   # c.a.d chou/oignon ou pomme de terre, et les
   # stocker dans une nouvelle liste 'a'.
-  a <- list(mylist[[1]][,,c(7,8,11)])
+  a <- list(mylist[[1]][,,c(9,10,13)])
   
   # Utiliser 'apply' sur un array simplifié de 'a' pour sommer les valeurs 
   # correspondantes dans chaque cellule des matrices et stocker le résultat dans 'SumListA'.
@@ -25,7 +25,7 @@ strat_culture <- function(mylist){
   
   # Extraire les 8e à 13e colonnes du premier élément de 'mylist' et les 
   # stocker dans une nouvelle liste 'b'.
-  b <- list(mylist[[1]][,,c(7:12)])
+  b <- list(mylist[[1]][,,c(9:15)])
   
   # Utiliser 'apply' sur un array simplifié de 'b' pour sommer les valeurs 
   # correspondantes dans chaque cellule des matrices de 8e à 13e, et stocker le 
@@ -41,14 +41,13 @@ strat_culture <- function(mylist){
 # nombre parcelles cultivées sur les trois tours (seuil : 6 ou 12)
 # Sum(p.totoignon, p.totchou, p.totaubergine,p.totpiment,p.totpdt,p.totcarotte)
 strat_parcelle <- function(mylist){
-  a <- list(mylist[[1]][,,c(7:12)])
+  a <- list(mylist[[1]][,,c(9:14)])
   SumListA <- apply(simplify2array(a), c(1,2), sum)
   return(SumListA)
 }
 
 ## Une analyse de flux de parcelles
 ## parcelle acheté - parcelles vendu
-
 strat_dynFoncier <- function(mylist){
   a <- list(mylist[[1]][,,6])
   a <- list(mylist[[1]][,,7])
@@ -59,7 +58,7 @@ strat_dynFoncier <- function(mylist){
 #  prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
 strat_gg <- function(mylist){
   # Extraire la 15e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
-  a <- mylist[[1]][,,15]
+  a <- mylist[[1]][,,17]
   # Retourner la liste 'a'.
   return(unlist(simplify2array(a)))
 }
@@ -67,7 +66,7 @@ strat_gg <- function(mylist){
 # Définir une fonction 'strat_lance' qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
 strat_lance <- function(mylist){
   # Extraire la 14e collone du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
-  a <- mylist[[1]][,,14]
+  a <- mylist[[1]][,,16]
   # Retourner la liste 'a'.
   return(simplify2array(a))
 }
@@ -75,15 +74,16 @@ strat_lance <- function(mylist){
 # Définir une fonction 'strat_seau' qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
 strat_seau <- function(mylist){
   # Extraire la 16e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
-  a <- mylist[[1]][,,16]
+  a <- mylist[[1]][,,18]
   # Retourner la liste 'a'.
   return(simplify2array(a))
 }
 
-# Définir une fonction 'strat_priorite_irrigation' qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
+# Définir une fonction 'strat_priorite_irrigation' qui prend en argument 'mylist', 
+# une liste de tableaux 3D (ou une liste de matrices).
 strat_priorite_irrigation <- function(mylist){
   # Extraire les colonnes 17 à 19 du premier élément de 'mylist' et les stocker dans une nouvelle liste 'a'.
-  a <- list(mylist[[1]][,,c(17:19)])
+  a <- list(mylist[[1]][,,c(19:21)])
   
   # Utiliser 'apply' sur un array simplifié de 'a' pour calculer la médiane des valeurs correspondantes dans chaque cellule des matrices 17 à 19, et stocker le résultat dans 'medListA'.
   medListA <- apply(simplify2array(a), c(1,2), median)
@@ -103,7 +103,7 @@ strat_priorite_irrigation <- function(mylist){
 # Définir une fonction capital qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
 capital <- function(mylist){
   # Extraire la 16e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
-  a <- mylist[[1]][,,2]
+  a <- mylist[[1]][,,1]
   # Retourner la liste 'a'.
   return(simplify2array(a))
 }
@@ -111,7 +111,7 @@ capital <- function(mylist){
 # Définir une fonction "profnappe" qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
 profnappe <- function(mylist){
   # Extraire la 16e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
-  a <- mylist[[1]][,,1]
+  a <- mylist[[1]][,,3]
   # Retourner la liste 'a'.
   return(simplify2array(a))
 }
@@ -120,7 +120,7 @@ profnappe <- function(mylist){
 # Définir une fonction "prelevtot" qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
 prelevement <- function(mylist){
   # Extraire la 16e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
-  a <- mylist[[1]][,,3]
+  a <- mylist[[1]][,,5]
   # Retourner la liste 'a'.
   return(simplify2array(a))
 }
@@ -128,18 +128,9 @@ prelevement <- function(mylist){
 # Définir une fonction "profmax" qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
 puits <- function(mylist){
   # Extraire la 16e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
-  a <- mylist[[1]][,,6]
+  a <- mylist[[1]][,,8]
   # Retourner la liste 'a'.
   return(simplify2array(a))
 }
 
-# Définir une fonction "agrandissement" qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
-prelevtot <- function(mylist){
-  # Extraire la 16e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
-  a <- mylist[[1]][,,c(4:5)]
-  
-  # A FAIRE : COMMENT ON CODE UNE SOUSTRACTION ENTRE LES VARIABLES 4 ET 5?
-  # Retourner la liste 'a'.
-  return(simplify2array(a))
-}
 
