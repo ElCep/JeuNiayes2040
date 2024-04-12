@@ -16,13 +16,15 @@ Fait :neckbeard: :
 - relancer plus de simulations (3000 ) :white_check_mark:
 - Renouveler le travail sur les boxplot pour avoir -> 3000 :white_check_mark:
 - script function_stat---> coder la dynamique soustraire ventes et additionner les achats :white_check_mark:
+- pour la stratégie du rang, privilégier la moyenne :white_check_mark:
 
 A faire :
 - retrouver le calcul de la prof de la nappe par partie irl.
 - Etienne : clustering profil joueurs :smoking:
 - Camille : projeter joueurs, ajouter prof nappe/ action collective ou multiplication action individuelle
-- pour la stratégie du rang, privilégier la moyenne
-- pour plus tard, dans les simule : tester des config initiales avec des répartitions plus ou moins équitables des parcelles et capitaux de base
+
+Pour plus tard :
+- dans les simule : tester des config initiales avec des répartitions plus ou moins équitables des parcelles et capitaux de base
 
 ## Variabilité des résultats
 ![100 réplication](img/sample/sample10.png)
