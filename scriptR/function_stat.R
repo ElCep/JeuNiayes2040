@@ -96,7 +96,7 @@ strat_priorite_irrigation <- function(mylist){
   
   # Utiliser 'apply' sur un array simplifié de 'a' pour appliquer 'mostFreq' à chaque cellule à travers les matrices 17 à 19, et stocker le résultat dans 'freqListA'.
   freqListA <- apply(simplify2array(a), c(1,2), mostFreq)
-  return(freqListA)
+  return(averageA)
 }
 
 
