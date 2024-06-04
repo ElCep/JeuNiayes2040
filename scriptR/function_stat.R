@@ -25,7 +25,9 @@
 #19rangpartie1,
 #20rangpartie2,
 #21rangpartie3
-
+#22parce_empeche1
+#23parce_empeche2
+#24parce_empeche3
 
 # Définir une fonction 'strat_culture' 
 # part de chou/oignon ou pomme de terre sur total
@@ -151,4 +153,13 @@ puits <- function(mylist){
   return(simplify2array(a))
 }
 
+
+# Compter le nb de fois où le joueur a été empêché de puiser (2 saisons par parcelle max)
+# sum de 
+
+strat_empechement <- function(mylist){
+  a <- list(mylist[[1]][,,c(22:24)])
+  SumListA <- apply(simplify2array(a), c(1,2), sum)
+  return(SumListA)
+}
 

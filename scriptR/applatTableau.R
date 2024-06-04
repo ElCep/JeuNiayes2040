@@ -26,7 +26,7 @@ s_profnappe.df <- NULL
 s_prelevement.df <- NULL
 s_puits.df <- NULL
 s_agrandissement.df <- NULL
-
+s_empechement.df <- NULL
 
 
 for(i in 1:length(file.l)){
@@ -43,7 +43,8 @@ for(i in 1:length(file.l)){
   s_profnappe.df <- rbind(s_profnappe.df, profnappe(results) )
   s_prelevement.df <- rbind(s_prelevement.df, prelevement(results) )
   s_puits.df <- rbind(s_puits.df, puits(results) )
-  s_agrandissement.df <- rbind(s_agrandissement.df, strat_dynFoncier(results) ) 
+  s_agrandissement.df <- rbind(s_agrandissement.df, strat_dynFoncier(results) )
+  s_empechement.df <- rbind(s_empechement.df, strat_empechement(results))
 }
 
 # tableau propre pour les stratégies de culture
@@ -117,6 +118,22 @@ s_puits.m <- melt(s_puits.df, id.vars = "partie")
 colnames(s_puits.m) <- c("partie","player","puits")
 
 
+s_agrandissement.df <- as.data.frame(s_agrandissement.df)
+s_agrandissement.df$partie <- seq(from = 1, to = length(s_agrandissement.df[,1]), by = 1)
+colnames(s_agrandissement.df) <- c("p1", "p2", "p3", "p4", "partie")
+s_agrandissement.m<- melt(s_agrandissement.df, id.vars = "partie")
+colnames(s_agrandissement.m) <- c("partie","player","puits")
+
+
+
+s_empechement.df <- as.data.frame(s_empechement.df)
+s_empechement.df$partie <- seq(from = 1, to = length(s_empechement.df[,1]), by = 1)
+colnames(s_empechement.df) <- c("p1", "p2", "p3", "p4", "partie")
+s_empechement.m<- melt(s_empechement.df, id.vars = "partie")
+colnames(s_empechement.m) <- c("partie","player","puits")
+
+
+
 ## jointure 
 
 df <- left_join(s_culture.m, s_parcelle.m, by=c('player'='player', 'partie'='partie'))
@@ -128,7 +145,8 @@ df <- left_join(df, s_capital.m, by=c('player'='player', 'partie'='partie'))
 df <- left_join(df, s_profnappe.m, by=c('player'='player', 'partie'='partie'))
 df <- left_join(df, s_prelevement.m, by=c('player'='player', 'partie'='partie'))
 df <- left_join(df, s_puits.m, by=c('player'='player', 'partie'='partie'))
-
+df <- left_join(df, s_agrandissement.m, by=c('player'='player', 'partie'='partie'))
+df <- left_join(df, s_empechement.m, by=c('player'='player', 'partie'='partie'))
 
 
 
