@@ -43,7 +43,7 @@ for(i in 1:length(file.l)){
   s_profnappe.df <- rbind(s_profnappe.df, profnappe(results) )
   s_prelevement.df <- rbind(s_prelevement.df, prelevement(results) )
   s_puits.df <- rbind(s_puits.df, puits(results) )
-#  s_agrandissement.df <- rbind(s_agrandissement.df, strat_ ) # A FAIRE MAIS J ARRIVE PAS LA SOUSTRACTION
+  s_agrandissement.df <- rbind(s_agrandissement.df, strat_dynFoncier(results) ) 
 }
 
 # tableau propre pour les stratégies de culture
