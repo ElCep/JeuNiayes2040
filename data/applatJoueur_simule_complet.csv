@@ -1,4 +1,4 @@
-"partie","player","stratCulture","stratParcelle","stratOrdreIrrig","stratSeau","stratGG","stratLance","capital","profnappe","prelevement","puits.x","puits.y","puits"
+"partie","player","stratCulture","stratParcelle","stratOrdreIrrig","stratSeau","stratGG","stratLance","capital","profnappe","prelevement","puits","agrandissement","empechement"
 1,"p1",0.888888888888889,9,3,1,0,5,-22,6.513,0,0,0,10
 2,"p1",0.714285714285714,7,2.33333333333333,3,0,1,61,7.566,36,10,NA,2
 3,"p1",0.5,12,1.66666666666667,0,0,6,-29.5,6.63,37,5,NA,8

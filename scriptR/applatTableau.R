@@ -122,7 +122,7 @@ s_agrandissement.df <- as.data.frame(s_agrandissement.df)
 s_agrandissement.df$partie <- seq(from = 1, to = length(s_agrandissement.df[,1]), by = 1)
 colnames(s_agrandissement.df) <- c("p1", "p2", "p3", "p4", "partie")
 s_agrandissement.m<- melt(s_agrandissement.df, id.vars = "partie")
-colnames(s_agrandissement.m) <- c("partie","player","puits")
+colnames(s_agrandissement.m) <- c("partie","player","agrandissement")
 
 
 
@@ -130,7 +130,7 @@ s_empechement.df <- as.data.frame(s_empechement.df)
 s_empechement.df$partie <- seq(from = 1, to = length(s_empechement.df[,1]), by = 1)
 colnames(s_empechement.df) <- c("p1", "p2", "p3", "p4", "partie")
 s_empechement.m<- melt(s_empechement.df, id.vars = "partie")
-colnames(s_empechement.m) <- c("partie","player","puits")
+colnames(s_empechement.m) <- c("partie","player","empechement")
 
 
 
