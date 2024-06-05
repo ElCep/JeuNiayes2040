@@ -67,11 +67,14 @@ strat_parcelle <- function(mylist){
 }
 
 ## Une analyse de flux de parcelles
+
 ## parcelle achetée - parcelles vendue
 strat_dynFoncier <- function(mylist){
   a <- list(mylist[[1]][,,6])
   b <- list(mylist[[1]][,,7])
-  return(simplify2array(b) - simplify2array(a))
+  m <- simplify2array(b) - simplify2array(a)
+  # s <- rowSums(abs(simplify2array(m)))
+  return(as.data.frame(m))
 }
 
 # Définir une fonction 'strat_techno' goute a goute
