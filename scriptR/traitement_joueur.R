@@ -11,18 +11,83 @@ library(ggplot2)
 library(dplyr)
 library(FactoMineR)
 # library(Factoshiny)
+library(corrplot)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-data.j <- read.csv("../data/applatJoueur_simule.csv")
-data.j$stratCulture <- as.numeric(data.j$stratCulture)
-summary(is.na(data.j$stratCulture))
-data.j <- data.j[!is.na(data.j$stratCulture),]
+data.js <- read.csv("../data/applatJoueur_simule_complet.csv")
+data.js$stratCulture <- as.numeric(data.js$stratCulture)
+summary(is.na(data.js$stratCulture))
+data.js <- data.js[!is.na(data.js$stratCulture),]
 
+
+data.jr <- read.csv("../data/gameSession_config_pluie_26.csv", header = T,sep =";", encoding = "latin1")
+
+names(data.js)
+# [1] "partie"          "player"          "stratCulture"    "stratParcelle"   "stratOrdreIrrig" "stratSeau"       "stratGG"         "stratLance"      "capital"        
+# [10] "profnappe"       "prelevement"     "puits"  
+
+
+## -- CAH
+
+# Distance matrix
+d <- dist(data.jr[,4:5])
+
+# Hierarchical clustering
+hc <- hclust(d, method = "ward.D")
+
+# Dendrogram
+plot(hc)
+rect.hclust(hc, k = 3)
+
+data.jr$cluster <- cutree(hc, k=3)
+
+ggplot(data = data.jr, aes(x = Capital_final , y=Consommation_eau, colour = as.factor(cluster)))+
+  geom_point()+
+  theme_bw()
+
+
+## --- 
+
+# Charger les packages nécessaires
+library(mclust)
+
+# Charger les données
+# Supposons que nous avons un dataframe: players
+# players contient les observations des joueurs
+
+
+players <- data.jr
+
+# Appliquer le modèle de mélange gaussien
+gmm_model <- Mclust(players[,4:14])
+
+# Afficher les résultats du modèle
+summary(gmm_model)
+
+# Afficher les paramètres du modèle
+print(gmm_model$parameters)
+
+# Visualiser les clusters
+plot(gmm_model, what = "classification")
+
+# Ajouter les prédictions des clusters aux données
+players$cluster <- gmm_model$classification
+
+# Afficher les données avec les clusters prédites
+print(players)
+
+
+#♥Matrice de corrélation
+mcor <- cor(data.j[,3:12], use="complete.obs")
+corrplot(mcor, type="upper", order="hclust", tl.col="black", tl.srt=45)
+
+
+## traitement des résultat sur des joueurs strictement identifque
+
+data.j <- read.csv(file = "../data/applatJoueur_simule_SameInit.csv")
 names(data.j)
-# [1] "partie"          "player"          "stratCulture"    "stratParcelle"   "stratOrdreIrrig" "stratSeau"       "stratGG"         "stratLance" 
-
-res.pca <- PCA(data.j[,c(-1,-2,-4,-6,-7,-8)], scale.unit=TRUE, ncp=2, graph=T)
-
-res.pca <- PCA(data.j[,c(-1,-2,-3,-4,-5)], scale.unit=TRUE, ncp=2, graph=T)
-
+# [1] "partie"          "player"          "stratCulture"    "stratParcelle"   "stratOrdreIrrig" "stratSeau"       "stratGG"        
+# [8] "stratLance"      "capital"         "profnappe"       "prelevement"     "puits"
+mcor <- cor(data.j[,3:12], use="complete.obs")
+corrplot(mcor, type="upper", order="hclust", tl.col="black", tl.srt=45)
