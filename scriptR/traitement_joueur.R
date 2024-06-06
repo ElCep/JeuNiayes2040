@@ -23,7 +23,7 @@ data.js <- data.js[!is.na(data.js$stratCulture),]
 
 data.jr <- read.csv("../data/gameSession_config_pluie_26.csv", header = T,sep =";", encoding = "latin1")
 
-names(data.js)
+names(data.jr)
 # [1] "partie"          "player"          "stratCulture"    "stratParcelle"   "stratOrdreIrrig" "stratSeau"       "stratGG"         "stratLance"      "capital"        
 # [10] "profnappe"       "prelevement"     "puits"  
 
@@ -45,6 +45,32 @@ data.jr$cluster <- cutree(hc, k=3)
 ggplot(data = data.jr, aes(x = Capital_final , y=Consommation_eau, colour = as.factor(cluster)))+
   geom_point()+
   theme_bw()
+
+## -- Simu
+
+# Distance matrix
+d <- dist(data.js[,c(9,11)])
+
+# Hierarchical clustering
+hc <- hclust(d, method = "ward.D")
+
+# Dendrogram
+plot(hc)
+rect.hclust(hc, k = 3)
+
+data.js$cluster <- cutree(hc, k=3)
+
+ggplot()+
+  geom_point(data = data.js, aes(x = capital , y=prelevement, colour = as.factor(cluster)))+
+  geom_point(data = data.jr, aes(x = Capital_final, y = Consommation_eau))+
+  theme_bw()+
+  labs(x="capital", y = "water consumtion")+
+  guides(colour=guide_legend(title="Cluster"))+
+  scale_color_brewer(type = "qual", palette = 3)
+ggsave("../img/cluster_joueurs.png", height = 7, width = 9)
+
+
+saveRDS(c(hc,data.jr,data.js), "../data/Cluster.RDS")
 
 
 ## --- 
