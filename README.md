@@ -46,3 +46,4 @@ Ces 4 figure nous montre qu'au travers l'augmentation du nombre de réplication,
 ## Analyse à l'échelle des parties
 
 	
+A faire : checker dans le modèle pourquoi on arrive à des capitaux négatifs.
