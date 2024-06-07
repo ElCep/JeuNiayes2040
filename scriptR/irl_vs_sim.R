@@ -23,6 +23,6 @@ names(data.jr)
 ggplot() +
   geom_point(data = data.js, aes(x = capital, y = prelevement), colour = "grey") + # Ajouter les points pour les données du joueur simulé
   geom_point(data = data.jr, aes(x = Capital_final, y = Consommation_eau), colour = "black", size = 3) + # Ajouter les points pour les données du joueur réel
-  xlim(c(0, 200)) + # Définir les limites de l'axe des x
+  #xlim(c(0, 200)) + # Définir les limites de l'axe des x
   theme_bw() + # Appliquer un thème de type "black and white"
   labs(x = "capital", y = "water consumption", title = "Joueurs réel et joueurs virtuels") # Ajouter des étiquettes et un titre 

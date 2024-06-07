@@ -31,7 +31,9 @@ colnames(agg_data_gini)<-c("partie","ginicap","giniprelev")
 
  colnames(irl_gini)<-c("ID.partie","ginicap","giniprelev")
 
-
+# prélèvements
+ agg_data_prelevement<-aggregate(prelevement ~ partie, data = df, FUN = sum)
+ irl_prelevement<- aggregate(Consommation_eau ~ ID.partie, data = real_gameSession, FUN = sum)
 # somme capital
 agg_data_capital<- aggregate(capital ~ partie, data = df, FUN = sum)
 irl_captot <-aggregate(Capital_final ~ID.partie, data=real_gameSession,FUN = sum)
@@ -48,7 +50,7 @@ irl_stratParcelle<- aggregate(strat_parcelle ~ ID.partie, data = real_gameSessio
 
 # stratSeau
 agg_data_stratSeau<- aggregate(stratSeau ~ partie, data = df, FUN = sum)
-# irl_stratSeau <- aggregate(strat_parcelle ~ ID.partie, data = df, FUN = sum)
+irl_stratSeau <- aggregate(stratSeau ~ ID.partie, data = real_gameSession, FUN = sum)
 
 # "stratGG"    
 agg_data_stratGG<- aggregate(stratGG ~ partie, data = df, FUN = sum)
@@ -57,19 +59,23 @@ irl_stratGG <- aggregate(strat_gag ~ ID.partie, data = real_gameSession, FUN = s
 
 #"stratLance" 
 agg_data_stratLance<- aggregate(stratLance ~ partie, data = df, FUN = sum)
-
+irl_stratlance <- aggregate(strat_lance ~ ID.partie, data = real_gameSession, FUN = sum)
 
 
 #"puits"  
 
 agg_data_puits<- aggregate(puits ~ partie, data = df, FUN = sum)
+irl_puits <- aggregate(puits_profmax ~ ID.partie, data = real_gameSession, FUN = sum)
+
 
 #"agrandissement"
 agg_data_foncier<- aggregate(agrandissement ~ partie, data = df, FUN = sum)
+irl_foncier <- aggregate(agrandissement ~ ID.partie, data = real_gameSession, FUN = sum)
 
 
 #"empechement"
 agg_data_empechement<- aggregate(empechement ~ partie, data = df, FUN = sum)
+irl_empechement <- aggregate(empechement ~ ID.partie, data = real_gameSession, FUN = sum)
 
 
 # prof nap
@@ -89,18 +95,24 @@ colnames(irl_profnappe)<- c("ID.partie","profnappe")
 tabparties<-cbind(agg_data_gini,agg_data_prof$profnappe,agg_data_capital$capital,
                   agg_data_stratculture$stratCulture,agg_data_stratParcelle$stratParcelle,
                   agg_data_stratSeau$stratSeau,agg_data_stratGG$stratGG,agg_data_stratLance$stratLance,
-                  agg_data_puits$puits,agg_data_empechement$empechement,agg_data_foncier$agrandissement
+                  agg_data_puits$puits,agg_data_empechement$empechement,agg_data_foncier$agrandissement,
+                  agg_data_prelevement$prelevement
                   )
+                  
 colnames(tabparties)<- c("partie","ginicap","giniprelev","profnappe","sum_cap","stratculture",
-                         "stratParcelle","stratSeau","StratGG","stratLance","puits","empechement","foncier")
+                         "stratParcelle","stratSeau","StratGG","stratLance","puits","empechement","foncier","prelevements")
 
 # Tableau final irl
 tabparties_irl<-cbind(irl_gini,irl_profnappe$profnappe,irl_captot$Capital_final, irl_stratculture$strat_culture, 
-                      irl_stratParcelle$strat_parcelle,irl_stratGG$strat_gag)
+                      irl_stratParcelle$strat_parcelle,irl_stratSeau$stratSeau, irl_stratGG$strat_gag,
+                      irl_stratlance$strat_lance, irl_puits$puits_profmax, 
+                      irl_empechement$empechement,irl_foncier$agrandissement,
+                      irl_prelevement$Consommation_eau
+                       )
 
 
 colnames(tabparties_irl)<-c("partie","ginicap","giniprelev","profnappe","sum_cap","stratculture",
-                            "stratParcelle","StratGG")
+                            "stratParcelle","stratSeau","StratGG","stratLance","puits","empechement","foncier","prelevements")
 
 #tabparties<-tabparties_irl
 
@@ -216,7 +228,7 @@ library(FactoMineR)
 library(factoextra)
 dev.off()
 res.pca <- PCA(tabparties[,c(-1)], scale.unit=TRUE, ncp=2, graph=T)
-
+res.pca <- PCA(tabparties_irl[,c(-1)], scale.unit=TRUE, ncp=2, graph=T)
 
 png(filename = "../results/partie/irl/acp_var.png", width = 800, height = 600)
 
@@ -235,23 +247,114 @@ png(filename = "../results/partie/irl/acp_indiv_var.png", width = 800, height = 
 fviz_pca_biplot(res.pca, label ="var", col.ind="cos2") +
        theme_minimal()
 dev.off()
+
+
+
+
+
+
+
+
+
 ###########################Essai joueurs
 
-tabparties_irl<-cbind(irl_gini,irl_captot$Capital_final)
-colnames(tabparties_irl)<-c("partie.irl","ginicap.irl","giniprelev.irl","sum_cap.irl")
-
+# Charger les bibliothèques nécessaires
+library(reshape2)
 library(ggplot2)
-ggplot()+
-  geom_point(data = tabparties, aes( x = ginicap, y = giniprelev), size = 0.5, alpha = 0.4)+
-  geom_point(data = tabparties_irl, aes(x =ginicap.irl, y = giniprelev.irl),  size = 6 , alpha = 0.4)+
-  # geom_hline(yintercept=0.75, linetype="dashed", color = "grey")+
-  # geom_vline(xintercept=0.75, linetype="dashed", color = "grey")+
-  theme_bw()+
-  labs(x = "final capital", y= "water withdrawal", 
-       title = "300 replication with diff. rainfall pattern", 
-       subtitle = "By players with a variation on underground water recharge\n")+
-  xlim(c(0,150))+
-  ylim(c(0,150))
 
 
 
+# Créer un graphique à points avec ggplot2
+ggplot() +
+  geom_point(data = tabparties, aes(x = sum_cap, y = profnappe), colour = "grey") + # Ajouter les points pour les données du joueur simulé
+  geom_point(data = tabparties_irl, aes(x = sum_cap, y = profnappe), colour = "black", size = 3) + # Ajouter les points pour les données du joueur réel
+  #xlim(c(0, 200)) + # Définir les limites de l'axe des x
+  theme_bw() + # Appliquer un thème de type "black and white"
+  labs(x = "capital", y = "prof nappe", title = "Joueurs réel et joueurs virtuels") # Ajouter des étiquettes et un titre 
+
+
+
+# Créer un graphique à points avec ggplot2
+ggplot() +
+  geom_point(data = tabparties, aes(x = sum_cap, y = prelevements), colour = "grey") + # Ajouter les points pour les données du joueur simulé
+  geom_point(data = tabparties_irl, aes(x = sum_cap, y = prelevements), colour = "black", size = 3) + # Ajouter les points pour les données du joueur réel
+  #xlim(c(0, 200)) + # Définir les limites de l'axe des x
+  theme_bw() + # Appliquer un thème de type "black and white"
+  labs(x = "capital", y = "prelevements", title = "Joueurs réel et joueurs virtuels") # Ajouter des étiquettes et un titre 
+
+
+# Créer un graphique à points avec ggplot2
+ggplot() +
+  geom_point(data = tabparties, aes(x = sum_cap, y = ginicap), colour = "grey") + # Ajouter les points pour les données du joueur simulé
+  geom_point(data = tabparties_irl, aes(x = sum_cap, y = ginicap), colour = "black", size = 3) + # Ajouter les points pour les données du joueur réel
+  #xlim(c(0, 200)) + # Définir les limites de l'axe des x
+  theme_bw() + # Appliquer un thème de type "black and white"
+  labs(x = "capital", y = "gini_cap", title = "Joueurs réel et joueurs virtuels") # Ajouter des étiquettes et un titre 
+
+
+
+
+# Créer un graphique à points avec ggplot2
+ggplot() +
+  geom_point(data = tabparties, aes(x = giniprelev, y = ginicap), colour = "grey") + # Ajouter les points pour les données du joueur simulé
+  geom_point(data = tabparties_irl, aes(x = giniprelev, y = ginicap), colour = "black", size = 3) + # Ajouter les points pour les données du joueur réel
+  #xlim(c(0, 200)) + # Définir les limites de l'axe des x
+  theme_bw() + # Appliquer un thème de type "black and white"
+  labs(x = "giniprelev", y = "gini_cap", title = "Joueurs réel et joueurs virtuels") # Ajouter des étiquettes et un titre 
+
+
+
+# Créer un graphique à points avec ggplot2
+ggplot() +
+  geom_point(data = tabparties, aes(x = giniprelev, y = prelevements), colour = "grey") + # Ajouter les points pour les données du joueur simulé
+  geom_point(data = tabparties_irl, aes(x = giniprelev, y = prelevements), colour = "black", size = 3) + # Ajouter les points pour les données du joueur réel
+  #xlim(c(0, 200)) + # Définir les limites de l'axe des x
+  theme_bw() + # Appliquer un thème de type "black and white"
+  labs(x = "giniprelev", y = "prelevements", title = "Joueurs réel et joueurs virtuels") # Ajouter des étiquettes et un titre 
+
+
+
+
+
+
+### ANALYSE  ACP simul et projection parties irl#############
+library(dplyr)
+library(FactoMineR)
+library(factoextra)
+
+res.pca <- PCA(tabparties[,c(-1)], scale.unit=TRUE, ncp=2, graph=T)
+
+
+png(filename = "../results/partie/irl/acp_var.png", width = 800, height = 600)
+
+fviz_pca_var(res.pca, col.var = "cos2", 
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"), repel = TRUE )
+dev.off()
+
+png(filename = "../results/partie/irl/acp_indiv.png", width = 800, height = 600)
+
+fviz_pca_ind(res.pca, axes = c(1,2), geom.ind = "point", 
+             addEllipses = TRUE, legend.title = "idividu")
+dev.off()
+
+
+png(filename = "../results/partie/irl/acp_indiv_var.png", width = 800, height = 600)
+fviz_pca_biplot(res.pca, label ="var", col.ind="cos2") +
+  theme_minimal()
+dev.off()
+
+
+library(missMDA)
+
+
+
+
+# Projections des irl dans l'espace des simuls
+
+tabparties<-tabparties[,c(-1)]
+tabparties_irl<-tabparties_irl[,c(-1)]
+
+res.pca <- PCA(as.data.frame(tabparties), ind.sup = as.data.frame(tabparties_irl), graph = FALSE)
+
+fviz_pca_ind(res.pca, habillage = "ind.sup",axes = c(1,2), geom.ind = "point", 
+             addEllipses = TRUE, legend.title = "idividu")
