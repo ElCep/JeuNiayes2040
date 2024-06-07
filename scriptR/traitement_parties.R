@@ -353,8 +353,12 @@ library(missMDA)
 
 tabparties<-tabparties[,c(-1)]
 tabparties_irl<-tabparties_irl[,c(-1)]
-
-res.pca <- PCA(as.data.frame(tabparties), ind.sup = as.data.frame(tabparties_irl), graph = FALSE)
+a<-tabparties_irl
+tabparties_irl<-unlist(tabparties_irl)
+res.pca <- PCA(tabparties,  graph = T)
+res.pca <- PCA(tabparties, ind.sup = tabparties_irl, graph = T)
 
 fviz_pca_ind(res.pca, habillage = "ind.sup",axes = c(1,2), geom.ind = "point", 
              addEllipses = TRUE, legend.title = "idividu")
+
+
