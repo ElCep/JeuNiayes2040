@@ -247,6 +247,9 @@ dev.off()
 
 # Projections des irl dans l'espace des simuls
 library(missMDA)
+library(dplyr)
+library(FactoMineR)
+library(factoextra)
 library("PerformanceAnalytics")
 tabparties1<-tabparties[,c(-1)]
 #chart.Correlation(tabparties, histogram=TRUE, pch=19)
@@ -281,7 +284,7 @@ for (col in cols) {
 
 
 
-
+data<-data[,c(-14)]
 
 
 res.pca <- PCA(data, ind.sup = length(tabparties[,1])+1:length(tabparties_irl[,1]), graph = T)
