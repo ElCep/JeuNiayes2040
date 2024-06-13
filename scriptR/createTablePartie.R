@@ -1,5 +1,5 @@
 
-
+library(ineq)
 
 #simulations
 df<- read.csv("../data/applatJoueur_simule_complet.csv")

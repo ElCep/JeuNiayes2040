@@ -2,8 +2,8 @@
 
 rm(list = ls())
 library(ineq)
-#library(Hmisc)
-#library(corrplot)
+library(Hmisc)
+library(corrplot)
 
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -15,12 +15,12 @@ source(file = "createTablePartie.R")
 ### ANALYSES  #############
 #♥Matrice de corrélation
 mcor <- cor(tabparties[,2:5], use="complete.obs")
-png(filename = "../results/partie/irl/fichier_correlation.png", width = 800, height = 600)
+png(filename = "../results/partie/sim/fichier_correlation.png", width = 800, height = 600)
 corrplot(mcor, type="upper", order="hclust", tl.col="black", tl.srt=45)
 dev.off()
 
 # GRAPHIQUE GINI PRELEV- GINI CAPITAL
-png(filename = "../results/partie/irl/ginicap_giniprelev.png", width = 800, height = 600)
+png(filename = "../results/partie/sim/ginicap_giniprelev.png", width = 800, height = 600)
 plot(x = tabparties$giniprelev, y = tabparties$ginicap, 
      xlab = "GINI des prélèvements", ylab = "GINI du capital", 
      main = "Relation entre le GINI des prélèvements et le GINI du capital",
@@ -29,7 +29,7 @@ dev.off()
 
 
 # GRAPHIQUE GINI CAPITAL - tot capital partir
-png(filename = "../results/partie/irl/ginicap_VA.png", width = 800, height = 600)
+png(filename = "../results/partie/sim/ginicap_VA.png", width = 800, height = 600)
 plot(x = tabparties$ginicap, y = tabparties$sum_cap, 
      xlab = "GINI du capital", ylab = "valeur ajoutée tot", 
      main = "Relation entre le GINI du capital valeur ajoutée tot",
@@ -38,7 +38,7 @@ dev.off()
 
 
 # GRAPHIQUE CAPITAL tot - prelevement
-png(filename = "../results/partie/irl/VA_profnappe.png", width = 800, height = 600)
+png(filename = "../results/partie/sim/VA_profnappe.png", width = 800, height = 600)
 plot(x = tabparties$sum_cap, y = tabparties$profnappe, 
      xlab = "sumcap", ylab = "profnappe", 
      main = "Relation entre entre valeur ajoutée tot et la profondeur de la nappe",
@@ -46,7 +46,7 @@ plot(x = tabparties$sum_cap, y = tabparties$profnappe,
 dev.off()
 
 # GRAPHIQUE GINI prelev - prelevement
-png(filename = "../results/partie/irl/giniprelev_profnappe.png", width = 800, height = 600)
+png(filename = "../results/partie/sim/giniprelev_profnappe.png", width = 800, height = 600)
 plot(x = tabparties$giniprelev, y = tabparties$profnappe, 
      xlab = "giniprelev", ylab = "profnappe", 
      main = "Relation entre le GINI des prélèvements etla profondeur de la nappe ",
@@ -55,7 +55,7 @@ dev.off()
 
 # GRAPHIQUE GINI prelev - sumcap
 
-png(filename = "../results/partie/irl/giniprelev_VA_giniVA.png", width = 800, height = 600)
+png(filename = "../results/partie/sim/giniprelev_VA_giniVA.png", width = 800, height = 600)
 
 color_palette <- colorRampPalette(c("blue", "red"))
 
@@ -75,7 +75,7 @@ dev.off()
 # GRAPHIQUE GINI CAPITAL - tot capital partir
 # Créer une palette de couleurs graduelle de bleu à rouge
 
-png(filename = "../results/partie/irl/giniVA_profnappe_VA.png", width = 800, height = 600)
+png(filename = "../results/partie/sim/giniVA_profnappe_VA.png", width = 800, height = 600)
 
 color_palette <- colorRampPalette(c("blue", "red"))
 # Convertir les valeurs de "ginicap" en couleurs selon la palette graduelle
@@ -96,7 +96,7 @@ dev.off()
 # GRAPHIQUE GINI CAPITAL - tot capital partir
 # Créer une palette de couleurs graduelle de bleu à rouge
 
-png(filename = "../results/partie/irl/VA_profnappe_Gini VA.png", width = 800, height = 600)
+png(filename = "../results/partie/sim/VA_profnappe_Gini VA.png", width = 800, height = 600)
 #png(filename = "../results/partie/VA_profnappe_Gini VA.png", width = 800, height = 600)
 
 color_palette <- colorRampPalette(c("blue", "red"))
@@ -124,22 +124,22 @@ library(FactoMineR)
 library(factoextra)
 dev.off()
 res.pca <- PCA(tabparties[,c(-1)], scale.unit=TRUE, ncp=2, graph=T)
-res.pca <- PCA(tabparties_irl[,c(-1)], scale.unit=TRUE, ncp=2, graph=T)
+#res.pca <- PCA(tabparties_irl[,c(-1)], scale.unit=TRUE, ncp=2, graph=T)
 
-png(filename = "../results/partie/irl/acp_var.png", width = 800, height = 600)
+png(filename = "../results/partie/sim/acp_var.png", width = 800, height = 600)
 
 fviz_pca_var(res.pca, col.var = "cos2", 
              gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"), repel = TRUE )
 dev.off()
 
-png(filename = "../results/partie/irl/acp_indiv.png", width = 800, height = 600)
+png(filename = "../results/partie/sim/acp_indiv.png", width = 800, height = 600)
 
 fviz_pca_ind(res.pca, axes = c(1,2), geom.ind = "point", 
              addEllipses = TRUE, legend.title = "idividu")
 dev.off()
 
 
-png(filename = "../results/partie/irl/acp_indiv_var.png", width = 800, height = 600)
+png(filename = "../results/partie/sim/acp_indiv_var.png", width = 800, height = 600)
 fviz_pca_biplot(res.pca, label ="var", col.ind="cos2") +
        theme_minimal()
 dev.off()
@@ -152,7 +152,7 @@ dev.off()
 
 
 
-###########################Essai joueurs
+###########################Essai irl
 
 # Charger les bibliothèques nécessaires
 library(reshape2)
@@ -240,28 +240,50 @@ fviz_pca_biplot(res.pca, label ="var", col.ind="cos2") +
 dev.off()
 
 
-library(missMDA)
+
 
 
 ## ICI
 
 # Projections des irl dans l'espace des simuls
-
-tabparties<-tabparties[,c(-1)]
-chart.Correlation(tabparties, histogram=TRUE, pch=19)
-tabparties$i <- 1
-tabparties_irl<-tabparties_irl[,c(-1)]
-length(tabparties_irl[,1])
-
-res.pca <- PCA(tabparties,  graph = T)
-res.pca <- PCA(tabparties, ind.sup = tabparties_irl, graph = T)
-
-fviz_pca_ind(res.pca, habillage = "ind.sup",axes = c(1,2), geom.ind = "point", 
-             addEllipses = TRUE, legend.title = "idividu")
+library(missMDA)
+library("PerformanceAnalytics")
+tabparties1<-tabparties[,c(-1)]
+#chart.Correlation(tabparties, histogram=TRUE, pch=19)
+tabparties1$name <- "sim"
+tabparties_irl1<-tabparties_irl[,c(-1)]
+tabparties_irl1$name <- "irl"
 
 
 
-data <- rbind(tabparties, tabparties_irl)
+data <- rbind(tabparties1, tabparties_irl1)
+
+# Afficher les col de data
+
+
+# Liste des colonnes à tracer
+cols <- c("ginicap", "giniprelev", "profnappe", "sum_cap", 
+          "stratculture", "stratParcelle", "stratSeau", 
+          "StratGG", "stratLance", "puits", "empechement", 
+          "foncier", "prelevements")
+
+# Boucle pour créer un graphique pour chaque colonne
+for (col in cols) {
+  p <- ggplot(data, aes_string(x = "name", y = col, color = "name")) +
+    geom_point() +
+    labs(title = paste("Graphique de", col), x = "Name", y = col) +
+    scale_color_manual(values = c("irl" = "blue", "sim" = "red")) +
+    theme_minimal()
+  
+  # Afficher le graphique
+  print(p)
+}
+
+
+
+
+
+
 res.pca <- PCA(data, ind.sup = length(tabparties[,1])+1:length(tabparties_irl[,1]), graph = T)
 fviz_pca_ind(res.pca, axes = c(1,2), geom.ind = "point", 
              addEllipses = TRUE, legend.title = "idividu")

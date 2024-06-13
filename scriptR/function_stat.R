@@ -45,7 +45,7 @@ strat_culture <- function(mylist){
   
   # Extraire les 9e à 14e colonnes du premier élément de 'mylist' et les 
   # stocker dans une nouvelle liste 'b'.
-  b <- list(mylist[[1]][,,c(9:14)])
+  b <- list(mylist[[1]][,,c(9,10,11,12,13,14)])
   
   # Utiliser 'apply' sur un array simplifié de 'b' pour sommer les valeurs 
   # correspondantes dans chaque cellule des matrices de 9e à 14e, et stocker le 

@@ -1,33 +1,33 @@
 Joueurs;Lieu;ID partie;Consommation_eau;Capital_final;bénéfices;enchainement;Pluie_annee2;Pluie_annee3;capital_initial;parcelles_initiales;strat_culture;strat_parcelle;strat_gag;strat_lance;stratSeau;puits_profmax;agrandissement;empechement
-Ababacar Laye NDIAYE;Kayar;2;66;43;23;2;6;20;20;1;25;8;6;0;1;15;0;0
-Massamba CISS;Kayar;2;36;25;14;2;6;20;11;1;66.67;6;4;0;2;10;0;0
-Moussa FALL;Kayar;2;60;41;26;2;6;20;15;3;25;8;6;0;2;10;0;0
-Modou MBAYE;Kayar;2;49;35;17;2;6;20;18;1;33.33;6;4;0;2;15;0;0
-Awa guèye;Kayar;3;67;60;49;2;20;6;11;2;14.29;7;3;2;2;10;0;0
-mor Diaye;Kayar;3;24;20;0;2;20;6;20;1;100;5;3;0;2;10;0;0
-Marama Ba;Kayar;3;29;27;12;2;20;6;15;1;100;4;3;0;1;10;0;0
-Mame thiro Gueye;Kayar;3;56;31;13;2;20;6;18;3;57.14;7;3;2;2;10;0;0
-Seydou FAYE;Mont Rolland;15;104;37;22;1;6;20;15;3;66.67;12;0;8;4;20;0;0
-Maty GUEYE;Mont Rolland;15;85;48;28;1;6;20;20;1;58.33;12;8;0;4;15;1;0
-Yoro BA;Mont Rolland;15;51;8;-10;1;6;20;18;1;83.33;6;0;4;2;15;0;0
-Modou MBENGUE;Mont Rolland;15;125;46;35;1;6;20;11;2;50;12;0;12;0;20;0;0
-Seydou FAYE;Mont Rolland;4;67;66;46;2;20;6;20;1;44.44;9;7;0;2;10;1;0
-Maty GUEYE;Mont Rolland;4;60;30;15;2;20;6;15;3;81.82;11;7;0;4;10;-1;0
-Samba FAYE;Mont Rolland;4;42;45;27;2;20;6;18;1;50;6;2;0;4;10;0;0
-Abdoulaye CISS;Mont Rolland;4;56;66;55;2;20;6;11;2;42.86;7;3;0;4;10;0;0
-Yoro ba;Mont Rolland;5;110;34;23;2;0;26;11;2;58.33;12;0;12;0;15;0;0
-abdoul diouf;Mont Rolland;5;106;60;45;2;0;26;15;3;75;12;0;12;0;15;0;0
-jean-Baptiste Faye;Mont Rolland;5;50;49;29;2;0;26;20;1;16.67;6;4;0;2;15;0;0
-Modou Mbengue;Mont Rolland;5;51;22;4;2;0;26;18;1;33.33;6;4;0;2;15;0;0
-Yoro BA;Mont Rolland;8;45;20;9;3;20;6;11;2;88.89;9;7;0;2;10;0;0
-Modou Mbengue;Mont Rolland;8;46;22;2;3;20;6;20;1;66.67;6;2;4;0;10;0;0
-Maty Guèye;Mont Rolland;8;45;57;39;3;20;6;18;1;33.33;6;4;0;2;10;0;0
-Seydou Faye;Mont Rolland;8;65;57;42;3;20;6;15;3;33.33;9;7;0;2;10;0;0
-Ousseynou SOW;Mboro;10;46;38;18;2;20;6;20;1;87.5;8;4;0;4;10;1;0
-Bineta BA;Mboro;10;50;61;46;2;20;6;15;3;62.5;8;4;0;4;10;-1;0
-Mamadou SARR;Mboro;10;70;81;70;2;20;6;11;2;25;8;4;0;4;15;0;0
-Djiby NDONGO;Mboro;10;81;72;54;2;20;6;18;1;12.5;8;4;0;4;15;1;0
-Ablaye Sow;Mboro;12;50;38;20;2;20;6;18;1;62.5;8;7;0;2;10;1;0
-Habib tioun;Mboro;12;62;71;56;2;20;6;15;3;37.5;8;4;0;4;10;-1;0
-mben Diop;Mboro;12;36;37;17;2;20;6;20;1;83.33;6;2;0;4;10;0;0
-Hassan Dieye;Mboro;12;42;46;35;2;20;6;11;2;83.33;6;0;2;4;10;0;0
+Ababacar Laye NDIAYE;Kayar;2;66;43;23;2;6;20;20;1;0.25;8;6;0;1;15;0;0
+Massamba CISS;Kayar;2;36;25;14;2;6;20;11;1;0.6667;6;4;0;2;10;0;0
+Moussa FALL;Kayar;2;60;41;26;2;6;20;15;3;0.25;8;6;0;2;10;0;0
+Modou MBAYE;Kayar;2;49;35;17;2;6;20;18;1;0.3333;6;4;0;2;15;0;0
+Awa guèye;Kayar;3;67;60;49;2;20;6;11;2;0.1429;7;3;2;2;10;0;0
+mor Diaye;Kayar;3;24;20;0;2;20;6;20;1;1;5;3;0;2;10;0;0
+Marama Ba;Kayar;3;29;27;12;2;20;6;15;1;1;4;3;0;1;10;0;0
+Mame thiro Gueye;Kayar;3;56;31;13;2;20;6;18;3;0.5714;7;3;2;2;10;0;0
+Seydou FAYE;Mont Rolland;15;104;37;22;1;6;20;15;3;0.6667;12;0;8;4;20;0;0
+Maty GUEYE;Mont Rolland;15;85;48;28;1;6;20;20;1;0.5833;12;8;0;4;15;1;0
+Yoro BA;Mont Rolland;15;51;8;-10;1;6;20;18;1;0.8333;6;0;4;2;15;0;0
+Modou MBENGUE;Mont Rolland;15;125;46;35;1;6;20;11;2;0.5;12;0;12;0;20;0;0
+Seydou FAYE;Mont Rolland;4;67;66;46;2;20;6;20;1;0.4444;9;7;0;2;10;1;0
+Maty GUEYE;Mont Rolland;4;60;30;15;2;20;6;15;3;0.8182;11;7;0;4;10;-1;0
+Samba FAYE;Mont Rolland;4;42;45;27;2;20;6;18;1;0.5;6;2;0;4;10;0;0
+Abdoulaye CISS;Mont Rolland;4;56;66;55;2;20;6;11;2;0.4286;7;3;0;4;10;0;0
+Yoro ba;Mont Rolland;5;110;34;23;2;0;26;11;2;0.5833;12;0;12;0;15;0;0
+abdoul diouf;Mont Rolland;5;106;60;45;2;0;26;15;3;0.75;12;0;12;0;15;0;0
+jean-Baptiste Faye;Mont Rolland;5;50;49;29;2;0;26;20;1;0.1667;6;4;0;2;15;0;0
+Modou Mbengue;Mont Rolland;5;51;22;4;2;0;26;18;1;0.3333;6;4;0;2;15;0;0
+Yoro BA;Mont Rolland;8;45;20;9;3;20;6;11;2;0.8889;9;7;0;2;10;0;0
+Modou Mbengue;Mont Rolland;8;46;22;2;3;20;6;20;1;0.6667;6;2;4;0;10;0;0
+Maty Guèye;Mont Rolland;8;45;57;39;3;20;6;18;1;0.3333;6;4;0;2;10;0;0
+Seydou Faye;Mont Rolland;8;65;57;42;3;20;6;15;3;0.3333;9;7;0;2;10;0;0
+Ousseynou SOW;Mboro;10;46;38;18;2;20;6;20;1;0.875;8;4;0;4;10;1;0
+Bineta BA;Mboro;10;50;61;46;2;20;6;15;3;0.625;8;4;0;4;10;-1;0
+Mamadou SARR;Mboro;10;70;81;70;2;20;6;11;2;0.25;8;4;0;4;15;0;0
+Djiby NDONGO;Mboro;10;81;72;54;2;20;6;18;1;0.125;8;4;0;4;15;1;0
+Ablaye Sow;Mboro;12;50;38;20;2;20;6;18;1;0.625;8;7;0;2;10;1;0
+Habib tioun;Mboro;12;62;71;56;2;20;6;15;3;0.375;8;4;0;4;10;-1;0
+mben Diop;Mboro;12;36;37;17;2;20;6;20;1;0.8333;6;2;0;4;10;0;0
+Hassan Dieye;Mboro;12;42;46;35;2;20;6;11;2;0.8333;6;0;2;4;10;0;0
