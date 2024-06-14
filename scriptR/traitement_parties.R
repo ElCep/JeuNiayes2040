@@ -213,7 +213,7 @@ ggplot() +
 
 
 
-### ANALYSE  ACP simul et projection parties irl#############
+### ANALYSE  ACP simul #############
 library(dplyr)
 library(FactoMineR)
 library(factoextra)
@@ -287,9 +287,27 @@ for (col in cols) {
 data<-data[,c(-14)]
 
 
-res.pca <- PCA(data, ind.sup = length(tabparties[,1])+1:length(tabparties_irl[,1]), graph = T)
+#res.pca <- PCA(data, ind.sup = length(tabparties[,1])+1:length(tabparties_irl[,1]), graph = T)
+#fviz_pca_ind(res.pca, axes = c(1,2), geom.ind = "point", 
+#             addEllipses = TRUE, legend.title = "idividu")
+
+
+
+
+# Assurez-vous que les indices des individus supplémentaires sont corrects
+ind_sup_indices <- length(tabparties[,1]) + 1:length(tabparties_irl[,1])
+
+# Réalisation de l'ACP
+res.pca <- PCA(data, ind.sup = ind_sup_indices, graph = TRUE)
+
+# Visualisation de l'ACP
 fviz_pca_ind(res.pca, axes = c(1,2), geom.ind = "point", 
-             addEllipses = TRUE, legend.title = "idividu")
+             addEllipses = TRUE, legend.title = "individu",
+             geom = c("point"),
+             geom.sup = c("point"),
+             col.ind.sup = "red", # Couleur des points supplémentaires
+             pointsize.ind.sup = 15)  # Taille des points supplémentaires
+
 ##
 # source :  http://www.sthda.com/english/wiki/wiki.php?id_contents=7851
 library("PerformanceAnalytics")
