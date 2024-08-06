@@ -45,7 +45,13 @@ for(i in 1:length(file.l)){
   s_puits.df <- rbind(s_puits.df, puits(results) )
   s_agrandissement.df <- rbind(s_agrandissement.df, strat_dynFoncier(results) )
   s_empechement.df <- rbind(s_empechement.df, strat_empechement(results))
-}
+
+  
+# paramètre capital
+  parampluie1 <- data$data$variables$pluie1
+  parampluie2 <- data$data$variables$pluie2
+  
+  }
 
 # tableau propre pour les stratégies de culture
 s_culture.df <- as.data.frame(s_culture.df)
