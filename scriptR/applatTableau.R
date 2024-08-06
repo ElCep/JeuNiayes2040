@@ -18,7 +18,8 @@ pluie <- c('20-6','6-20','0-26')
 s_culture.df <- NULL
 s_gg.df <- NULL
 s_lance.df <- NULL
-s_parcelle.df <- NULL
+s_nbparcellestot.df<-NULL
+s_parcelleculti.df <- NULL
 s_prioIrrig.df <- NULL
 s_seau.df <- NULL
 s_capital.df <- NULL
@@ -30,12 +31,14 @@ s_empechement.df <- NULL
 s_capitalini.df<-NULL
 s_parcelleini.df <- NULL
 s_accumcap.df<-NULL
+
 for(i in 1:length(file.l)){
   data <- fromJSON(file.l[i])
   results <- data$data$variables$result
 #  s_culture.df <- rbind(s_culture.df, cbind(strat_culture(results),pluie[i])) # j'ai enlevé la colonne pluie
   s_culture.df <- rbind(s_culture.df, strat_culture(results))
-  s_parcelle.df <- rbind(s_parcelle.df, strat_parcelle(results))
+  s_parcelleculti.df <- rbind(s_parcelleculti.df, strat_parcelle(results))
+  s_nbparcellestot.df <- rbind(s_nbparcellestot.df,nb_parcelle(results))
   s_prioIrrig.df <- rbind(s_prioIrrig.df, strat_priorite_irrigation(results))
   s_seau.df <- rbind(s_seau.df, strat_seau(results))
   s_gg.df <- rbind(s_gg.df, strat_gg(results))
@@ -67,11 +70,19 @@ s_culture.m <- melt(s_culture.df, id.vars = "partie") # inverse ligne et colonne
 colnames(s_culture.m) <- c("partie","player","stratCulture")
 
 
-s_parcelle.df <- as.data.frame(s_parcelle.df)
-s_parcelle.df$partie <- seq(from = 1, to = length(s_parcelle.df[,1]), by = 1)
-colnames(s_parcelle.df) <- c("p1", "p2", "p3", "p4", "partie")
-s_parcelle.m <- melt(s_parcelle.df, id.vars = "partie")
-colnames(s_parcelle.m) <- c("partie","player","Parcelle")
+s_parcelleculti.df <- as.data.frame(s_parcelleculti.df)
+s_parcelleculti.df$partie <- seq(from = 1, to = length(s_parcelleculti.df[,1]), by = 1)
+colnames(s_parcelleculti.df) <- c("p1", "p2", "p3", "p4", "partie")
+s_parcelleculti.m <- melt(s_parcelleculti.df, id.vars = "partie")
+colnames(s_parcelleculti.m) <- c("partie","player","parcelleculti")
+
+
+
+s_nbparcellestot.df  <- as.data.frame(s_nbparcellestot.df )
+s_nbparcellestot.df $partie <- seq(from = 1, to = length(s_nbparcellestot.df [,1]), by = 1)
+colnames(s_nbparcellestot.df ) <- c("p1", "p2", "p3", "p4", "partie")
+s_nbparcellestot.m <- melt(s_nbparcellestot.df , id.vars = "partie")
+colnames(s_nbparcellestot.m) <- c("partie","player","nbparcellestot")
 
 
 s_parcelleini.df <- as.data.frame(s_parcelleini.df)
@@ -165,7 +176,8 @@ colnames(s_empechement.m) <- c("partie","player","empechement")
 
 ## jointure 
 
-df <- left_join(s_culture.m, s_parcelle.m, by=c('player'='player', 'partie'='partie'))
+df <- left_join(s_culture.m, s_parcelleculti.m, by=c('player'='player', 'partie'='partie'))
+df <- left_join(df, s_nbparcellestot.m, by=c('player'='player', 'partie'='partie'))
 df <- left_join(df, s_prioIrrig.m, by=c('player'='player', 'partie'='partie'))
 df <- left_join(df, s_seau.m, by=c('player'='player', 'partie'='partie'))
 df <- left_join(df, s_gg.m, by=c('player'='player', 'partie'='partie'))
