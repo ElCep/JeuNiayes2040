@@ -66,6 +66,16 @@ strat_parcelle <- function(mylist){
   return(SumListA)
 }
 
+
+# nb parcelles
+nb_parcelle <- function(mylist){
+  parcini <- list(mylist[[1]][,,2])
+  vente <- list(mylist[[1]][,,6])
+  achat <- list(mylist[[1]][,,7])
+  m <- simplify2array(parcini) - simplify2array(vente) + simplify2array(achat)
+  # s <- rowSums(abs(simplify2array(m)))
+  return(as.data.frame(m))
+}
 ## Une analyse de flux de parcelles
 
 ## parcelle achetée - parcelles vendue
@@ -76,6 +86,18 @@ strat_dynFoncier <- function(mylist){
   # s <- rowSums(abs(simplify2array(m)))
   return(as.data.frame(m))
 }
+
+
+
+## Accumulation profit
+accumcap <- function(mylist){
+  a <- list(mylist[[1]][,,4]) # capital final
+  b <- list(mylist[[1]][,,1])# capital initial
+  m <- simplify2array(a) - simplify2array(b)
+  # s <- rowSums(abs(simplify2array(m)))
+  return(as.data.frame(m))
+}
+
 
 # Définir une fonction 'strat_techno' goute a goute
 #  prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
@@ -130,6 +152,25 @@ capital <- function(mylist){
   # Retourner la liste 'a'.
   return(simplify2array(a))
 }
+
+# Définir une fonction capital qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
+capitalini <- function(mylist){
+  # Extraire la 4e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
+  a <- mylist[[1]][,,1]
+  # Retourner la liste 'a'.
+  return(simplify2array(a))
+}
+
+# Définir une fonction capital qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
+parcelleini <- function(mylist){
+  # Extraire la 4e colonne du premier élément de 'mylist' et la stocker dans une nouvelle liste 'a'.
+  a <- mylist[[1]][,,2]
+  # Retourner la liste 'a'.
+  return(simplify2array(a))
+}
+
+
+
 
 # Définir une fonction "profnappe" qui prend en argument 'mylist', une liste de tableaux 3D (ou une liste de matrices).
 profnappe <- function(mylist){

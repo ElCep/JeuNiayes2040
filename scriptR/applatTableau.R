@@ -27,14 +27,15 @@ s_prelevement.df <- NULL
 s_puits.df <- NULL
 s_agrandissement.df <- NULL
 s_empechement.df <- NULL
-
-
+s_capitalini.df<-NULL
+s_parcelleini.df <- NULL
+s_accumcap.df<-NULL
 for(i in 1:length(file.l)){
   data <- fromJSON(file.l[i])
   results <- data$data$variables$result
 #  s_culture.df <- rbind(s_culture.df, cbind(strat_culture(results),pluie[i])) # j'ai enlevé la colonne pluie
   s_culture.df <- rbind(s_culture.df, strat_culture(results))
-    s_parcelle.df <- rbind(s_parcelle.df, strat_parcelle(results))
+  s_parcelle.df <- rbind(s_parcelle.df, strat_parcelle(results))
   s_prioIrrig.df <- rbind(s_prioIrrig.df, strat_priorite_irrigation(results))
   s_seau.df <- rbind(s_seau.df, strat_seau(results))
   s_gg.df <- rbind(s_gg.df, strat_gg(results))
@@ -45,13 +46,14 @@ for(i in 1:length(file.l)){
   s_puits.df <- rbind(s_puits.df, puits(results) )
   s_agrandissement.df <- rbind(s_agrandissement.df, strat_dynFoncier(results) )
   s_empechement.df <- rbind(s_empechement.df, strat_empechement(results))
-
-  
+  s_capitalini.df<-rbind(s_capitalini.df, capitalini(results) )
+  s_parcelleini.df <-rbind(s_parcelleini.df, parcelleini(results))
+  s_accumcap.df<-rbind(s_accumcap.df,accumcap(results))
 # paramètre capital
-  parampluie1 <- data$data$variables$pluie1
-  parampluie2 <- data$data$variables$pluie2
-  
+#  parampluie1 <- data$data$variables$pluie1
+#  parampluie2 <- data$data$variables$pluie2
   }
+
 
 # tableau propre pour les stratégies de culture
 s_culture.df <- as.data.frame(s_culture.df)
@@ -65,12 +67,18 @@ s_culture.m <- melt(s_culture.df, id.vars = "partie") # inverse ligne et colonne
 colnames(s_culture.m) <- c("partie","player","stratCulture")
 
 
-
 s_parcelle.df <- as.data.frame(s_parcelle.df)
 s_parcelle.df$partie <- seq(from = 1, to = length(s_parcelle.df[,1]), by = 1)
 colnames(s_parcelle.df) <- c("p1", "p2", "p3", "p4", "partie")
 s_parcelle.m <- melt(s_parcelle.df, id.vars = "partie")
-colnames(s_parcelle.m) <- c("partie","player","stratParcelle")
+colnames(s_parcelle.m) <- c("partie","player","Parcelle")
+
+
+s_parcelleini.df <- as.data.frame(s_parcelleini.df)
+s_parcelleini.df$partie <- seq(from = 1, to = length(s_parcelleini.df[,1]), by = 1)
+colnames(s_parcelleini.df) <- c("p1", "p2", "p3", "p4", "partie")
+s_parcelleini.m <- melt(s_parcelleini.df, id.vars = "partie")
+colnames(s_parcelleini.m) <- c("partie","player","Parcelleini")
 
 
 s_prioIrrig.df <- as.data.frame(s_prioIrrig.df)
@@ -104,6 +112,21 @@ s_capital.df$partie <- seq(from = 1, to = length(s_capital.df[,1]), by = 1)
 colnames(s_capital.df) <- c("p1", "p2", "p3", "p4", "partie")
 s_capital.m <- melt(s_capital.df, id.vars = "partie")
 colnames(s_capital.m) <- c("partie","player","capital")
+
+
+s_capitalini.df <- as.data.frame(s_capitalini.df)
+s_capitalini.df$partie <- seq(from = 1, to = length(s_capitalini.df[,1]), by = 1)
+colnames(s_capitalini.df) <- c("p1", "p2", "p3", "p4", "partie")
+s_capitalini.m <- melt(s_capitalini.df, id.vars = "partie")
+colnames(s_capitalini.m) <- c("partie","player","capitalini")
+
+
+s_accumcap.df <- as.data.frame(s_accumcap.df)
+s_accumcap.df$partie <- seq(from = 1, to = length(s_accumcap.df[,1]), by = 1)
+colnames(s_accumcap.df) <- c("p1", "p2", "p3", "p4", "partie")
+s_accumcap.m <- melt(s_accumcap.df, id.vars = "partie")
+colnames(s_accumcap.m) <- c("partie","player","accumcap")
+
 
 s_profnappe.df <- as.data.frame(s_profnappe.df)
 s_profnappe.df$partie <- seq(from = 1, to = length(s_profnappe.df[,1]), by = 1)
@@ -153,9 +176,9 @@ df <- left_join(df, s_prelevement.m, by=c('player'='player', 'partie'='partie'))
 df <- left_join(df, s_puits.m, by=c('player'='player', 'partie'='partie'))
 df <- left_join(df, s_agrandissement.m, by=c('player'='player', 'partie'='partie'))
 df <- left_join(df, s_empechement.m, by=c('player'='player', 'partie'='partie'))
-
-
-
+df <- left_join(df, s_capitalini.m, by=c('player'='player', 'partie'='partie'))
+df <- left_join(df, s_parcelleini.m, by=c('player'='player', 'partie'='partie'))
+df <- left_join(df,s_accumcap.m, by=c('player'='player', 'partie'='partie'))
 #A FAIRE : ajouter une colonne id joueur : pour retrouver directement les joueurs en individuel
 
 
