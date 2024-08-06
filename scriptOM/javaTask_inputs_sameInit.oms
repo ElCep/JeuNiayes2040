@@ -1,0 +1,72 @@
+//import _file_.gini_R._
+
+val i = Val[Int]
+val cap1 = Val[Double]
+val cap2 = Val[Double]
+val cap3 = Val[Double]
+val cap4 = Val[Double]
+val surf1 = Val[Double]
+val surf2 = Val[Double]
+val surf3 = Val[Double]
+val surf4 = Val[Double]
+val pluie1 = Val[Double]
+val pluie2 = Val[Double]
+val pxpiment = Val[Double]
+val pxaubergine = Val[Double]
+val pxcarotte = Val[Double]
+val pxchou = Val[Double]
+val pxoignon = Val[Double]
+val pxpdt = Val[Double]
+val nbpartie = Val[Double]
+
+val result = Val[Array[Array[Double]]]
+val capitalAccumulation = Val[Double]
+val waterConsumption = Val[Double]
+
+//Defines the task to perform the hello function
+val javaTask = ScalaTask("""
+  import scala.jdk.CollectionConverters.*
+  val o = 
+    fr.ocelet.model.jeu_niayes.Jeu_Niayes.run(cap1, cap2, cap3, cap4, surf1, surf2, surf3, surf4, pluie1, pluie2,pxpiment,
+    pxaubergine, pxcarotte, pxchou, pxoignon, pxpdt,nbpartie)
+  val result = o.asScala.values.map(_.asScala.map(_.doubleValue).toArray).toArray
+  val waterConsumption = result.map(a => a(2)).sum
+  val capitalAccumulation = result.map(a => a(1)).sum
+  """) set (
+  libraries += workDirectory / "jeu_niayes.jar",
+  inputs += i,
+  inputs += (cap1, cap2, cap3, cap4, surf1, surf2, surf3, surf4, pluie1, pluie2,pxpiment,pxaubergine,pxcarotte, pxchou, pxoignon,pxpdt,  nbpartie),
+  outputs += (cap1, cap2, cap3, cap4, surf1, surf2, surf3, surf4, pluie1, pluie2,pxpiment,pxaubergine,pxcarotte, pxchou, pxoignon,pxpdt, 
+  nbpartie, result, waterConsumption, capitalAccumulation),
+  // Default values. Can be removed if OpenMOLE Vals are set by values coming from the workflow
+  /*cap1 := 11,
+  cap2 := 12,
+  cap3 := 15,
+  cap4 := 18,
+  surf1 := 2,
+  surf2 := 1,
+  surf3 := 1,
+  surf4 := 3,
+  pluie1 := 750,
+  pluie2 := 750*/
+  i := 1,
+  cap1 := 11.0,
+  cap2 := 11.0,
+  cap3 := 11.0,
+  cap4 := 11.0,
+  surf1 := 2.0,
+  surf2 := 2.0,
+  surf3 := 2.0,
+  surf4 := 2.0,
+  pluie1 := 300,
+  pluie2 := 300,
+  pxpiment := 25,    // jeu 25
+  pxaubergine := 15, // jeu 15
+  pxcarotte := 12,   // jeu 12
+  pxchou := 9,       // jeu 9
+  pxoignon := 10,    //jeu 10
+  pxpdt := 6 ,       // jeu 6
+  nbpartie := 3 // Normalement 3
+) 
+
+javaTask hook display
