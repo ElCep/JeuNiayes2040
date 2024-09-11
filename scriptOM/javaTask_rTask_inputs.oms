@@ -1,0 +1,120 @@
+/*- Cette TASK est coupler en fin de script avec la rTASK -*/
+
+//import _file_.gini_R._
+
+val i = Val[Int]
+val cap1 = Val[Double]
+val cap2 = Val[Double]
+val cap3 = Val[Double]
+val cap4 = Val[Double]
+val surf1 = Val[Double]
+val surf2 = Val[Double]
+val surf3 = Val[Double]
+val surf4 = Val[Double]
+val pluie1 = Val[Double]
+val pluie2 = Val[Double]
+val pxpiment = Val[Double]
+val pxaubergine = Val[Double]
+val pxcarotte = Val[Double]
+val pxchou = Val[Double]
+val pxoignon = Val[Double]
+val pxpdt = Val[Double]
+val nbpartie = Val[Double]
+
+val result = Val[Array[Array[Double]]]
+val capitalAccumulation = Val[Double]
+val waterConsumption = Val[Double]
+
+
+// rTask variables 
+val vectFromGini = Val[Array[Double]]
+val giniTarget = Val[Double]
+
+// Task
+val rTaskGini = RTask("""
+    library("DescTools")
+
+calculate_gini <- function(values) {
+  return(Gini(values, conf.level = NA, R = 10000, type = "bca", na.rm = FALSE))
+}
+
+generate_vector_with_gini <- function(target_gini, size = 4, min_val = 10, max_val = 20, max_iterations = 100000, tolerance = 0.0001) {
+  vector <- sample(min_val:max_val, size, replace = TRUE)
+  current_gini <- calculate_gini(vector)
+  iteration <- 0
+  
+  while (abs(current_gini - target_gini) > tolerance && iteration < max_iterations) {
+    new_vector <- sample(min_val:max_val, size, replace = TRUE)
+    new_gini <- calculate_gini(new_vector)
+    
+    if (abs(new_gini - target_gini) < abs(current_gini - target_gini)) {
+      vector <- new_vector
+      current_gini <- new_gini
+    }
+    
+    iteration <- iteration + 1
+  }
+  
+  return(vector)
+}
+
+
+target_gini <- giniTarget
+vectFromGini <- generate_vector_with_gini(target_gini)
+    """,
+    libraries = Seq("DescTools")
+) set(
+    inputs += giniTarget.mapped,
+    
+    outputs += vectFromGini.mapped,
+    outputs += giniTarget,
+    
+    // Default value for the input
+    giniTarget := 0.2
+)
+
+//Defines the task to perform the hello function
+val javaTask = ScalaTask("""
+  import scala.jdk.CollectionConverters.*
+  val o = 
+    fr.ocelet.model.jeu_niayes.Jeu_Niayes.run(vectFromGini(0), vectFromGini(1), vectFromGini(2), vectFromGini(3), 
+    surf1, surf2, surf3, surf4, pluie1, pluie2,pxpiment,
+    pxaubergine, pxcarotte, pxchou, pxoignon, pxpdt,nbpartie)
+  val result = o.asScala.values.map(_.asScala.map(_.doubleValue).toArray).toArray
+  val waterConsumption = result.map(a => a(2)).sum
+  val capitalAccumulation = result.map(a => a(1)).sum
+  """) set (
+  libraries += workDirectory / "jeu_niayes.jar",
+  inputs += (i,vectFromGini),
+  inputs += (surf1, surf2, surf3, surf4, pluie1, pluie2,pxpiment,pxaubergine,pxcarotte, pxchou, pxoignon,pxpdt,  nbpartie, giniTarget),
+  outputs += (giniTarget, vectFromGini, surf1, surf2, surf3, surf4, pluie1, pluie2,pxpiment,pxaubergine,pxcarotte, pxchou, pxoignon,pxpdt, 
+  nbpartie, result, waterConsumption, capitalAccumulation),
+  // Default values. Can be removed if OpenMOLE Vals are set by values coming from the workflow
+  /*cap1 := vectFromGini(0), // Doit être penser pour la rTask(Gini)
+  cap2 := vectFromGini(1),
+  cap3 := vectFromGini(2),
+  cap4 := vectFromGini(3),*/
+  surf1 := 2.0,
+  surf2 := 3.0,
+  surf3 := 2.0,
+  surf4 := 1.0,
+  i := 1,
+  pluie1 := 6.0,
+  pluie2 := 20.0,
+  pxpiment := 25.0,    // jeu 25
+  pxaubergine := 15.0, // jeu 15
+  pxcarotte := 12.0,   // jeu 12
+  pxchou := 9.0,       // jeu 9
+  pxoignon := 10.0,    //jeu 10
+  pxpdt := 6.0,       // jeu 6
+  nbpartie := 3.0 // Normalement 3
+) 
+
+
+// Define tasks t1 and t2
+val moleTask = MoleTask(rTaskGini -- javaTask)
+//val env = LocalEnvironment(1) 
+
+//moleTask on env hook display
+
+
