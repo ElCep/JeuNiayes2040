@@ -13,6 +13,7 @@ data.js <- read.csv("../data/applatJoueur_simule_complet.csv")  # js pour joueur
 
 # Convertir la colonne stratCulture en numérique
 data.js$stratCulture <- as.numeric(data.js$stratCulture)
+
 # Afficher les noms des colonnes du jeu de données simulé
 names(data.js)
 
